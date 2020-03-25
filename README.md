@@ -33,3 +33,65 @@
 
 1. 全局安装 next 脚手架 npm i create-next-app -g
 2. 创建 next 项目 create-next-app imooc_next_github
+
+### koa 集成到 next 中
+
+1. 安装 koa 包 npm i koa -s
+2. 创建根目录启动页 server.js ,添加代码:
+
+```
+    const Koa = require("koa");
+    const next = require("next");
+    //开发状态
+    const dev = process.env.NODE_ENV !== "production";
+    const app = next({ dev });
+    const handle = app.getRequestHandler();
+
+    const PORT = 3001;
+    // 等到pages目录编译完成后启动服务响应请求
+    app.prepare().then(() => {
+    const server = new Koa();
+
+    server.use(async (ctx, next) => {
+        await handle(ctx.req, ctx.res);
+        ctx.respond = false;
+    });
+
+    server.listen(PORT, () => {
+        console.log(`koa server listening on ${PORT}`);
+    });
+    });
+
+```
+
+3. 修改 npm run 指令为: "dev": "node server.js",
+
+### 页面路由跳转
+
+1. 引入 koa 路由库: npm i koa-router -s , server.js 修改
+
+```
+  //引用
+  const Router = require("koa-router");
+  //实例化
+   const router = new Router();
+   //注册到koa
+   server.use(router.routes());
+```
+
+2. 创建 /a/:id 标签
+
+```
+   router.get("/a/:id", async ctx => {
+        const id = ctx.params.id;
+        await handle(ctx.req, ctx.res, {
+        pathname: "/a",
+        query: {
+            id
+        }
+        });
+        ctx.respond = false;
+    });
+```
+
+3. 在 pages/下创建 a.js 页面接受跳转
