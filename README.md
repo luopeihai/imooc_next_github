@@ -13,7 +13,7 @@
 
 - koa JWT Sequelize Validator 与 LinValidator 验证器
 - next
-- npm
+- npm create-next-app(next 脚手架)
 - nodemon (node 自动编译)
 
 # bug 妖魔榜
@@ -25,3 +25,11 @@
 # 取经路
 
 ### 项目搭建
+
+1. npm init 初始化
+2. npm i react react-dom next -s
+
+### create-next-app 搭建项目
+
+1. 全局安装 next 脚手架 npm i create-next-app -g
+2. 创建 next 项目 create-next-app imooc_next_github
