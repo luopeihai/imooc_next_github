@@ -4,7 +4,9 @@
   "description": "参考 慕课网jokcy老师课程 [React16.8+Next.js+Koa2开发Github全栈项目](https://coding.imooc.com/class/334.html)",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "next",
+    "build": "next build",
+    "start": "next start"
   },
   "repository": {
     "type": "git",
