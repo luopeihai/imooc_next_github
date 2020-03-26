@@ -335,3 +335,34 @@ export default class MyApp extends App {
 }
 
 ```
+
+### 自定义 document + 样式
+
+> 用来修改服务端渲染文档内容,只在服务端渲染调用
+
+1. 创建 pages/\_document.js 文件
+2. 引入 css 解决方案 需要引入 styled-components 和 babel-plugin-styled-components 库:npm i styled-components babel-plugin-styled-components -s , .babelrc 中添加代码:
+
+```
+    [
+      "styled-components", {"ssr": true}
+    ]
+```
+
+3. a.js 定义样式
+
+```
+import styled from "styled-components";
+const Title = styled.h1`
+  color: yellow;
+  font-size: 40px;
+`;
+
+//jsx中
+<Title>
+        A name:{name} {router.query.id}
+</Title>
+
+```
+
+4. \_document.js 重写
