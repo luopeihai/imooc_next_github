@@ -135,3 +135,41 @@ get a //出去"123"
 ```
 
 3. 执行文件 : node test-redis.js
+
+### 项目 antd 引入
+
+> 由于 next 默认配置不支持 css 文件引用,所以需要做一下步骤
+
+1. 安装支持 next 使用 css 的包:npm i @zeit/next-css -s
+2. 由于 next 默认配置不支持,css 文件引用需要修改 next 配置,根目录创建 next.config.js
+
+```
+    const withCss = require('@zeit/next-css')
+
+    if (typeof require !== 'undefined') { //require 存在
+    require.extensions['.css'] = file => {}
+    }
+
+    // withCss得到的是一个nextjs的config配置
+    module.exports = withCss({})
+```
+
+3. antd 库引入 : npm i antd -s , 和按需加载库:npm i babel-plugin-import -s
+4. 根目录创建按需加载配置文件: .babelrc
+
+```
+{
+  "presets": ["next/babel"],
+  "plugins": [
+    [
+      "import",
+      {
+        "libraryName": "antd"
+      }
+    ]
+  ]
+}
+
+```
+
+5.全局引入 antd css 文件
