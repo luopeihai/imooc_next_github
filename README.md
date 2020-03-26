@@ -198,3 +198,29 @@ export default App;
 > next Link 组件进行跳转,跳转属性 href="",注意 Link 里面只有一个子节点
 
 ### 动态路由(带参)
+
+1. 参数跳转 a 页面
+
+```
+import Router from "next/router";
+Router.push({
+      pathname: "/a",
+      query: {
+        id: 2
+      }
+    });
+```
+
+2. a 页面接受参数,需要使用 withRouter
+
+```
+import { withRouter } from "next/router";
+
+const A = ({ router }) => (
+  <>
+    <span className="link"> A {router.query.id}</span>
+  </>
+);
+
+export default withRouter(A);
+```
