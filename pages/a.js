@@ -1,24 +1,23 @@
-import { withRouter } from "next/router";
 import styled from "styled-components";
+
 const Title = styled.h1`
   color: yellow;
   font-size: 40px;
 `;
-
-const A = ({ router, name }) => (
-  <>
-    <span className="link">
-      <Title>
-        A name:{name} {router.query.id}
-      </Title>
-    </span>
-  </>
-);
-
-A.getInitialProps = () => {
-  return {
-    name: "jokcy"
-  };
+const A = ({ name, timeDiff }) => {
+  return (
+    <>
+      <Title>这是A页面, 时间差是{timeDiff}</Title>
+    </>
+  );
 };
 
-export default withRouter(A);
+A.getInitialProps = async ctx => {
+  //需要加载
+  const { default: moment } = await import("moment");
+  console.log("moment: ", moment);
+  const timeDiff = moment(Date.now() - 60 * 1000).fromNow();
+  return { timeDiff };
+};
+
+export default A;
