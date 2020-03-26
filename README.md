@@ -97,11 +97,12 @@
 
 3. 在 pages/下创建 a.js 页面接受跳转
 
-### redis 使用
+### redis 安装 + 使用
 
 1. mac 通过 brew 进行安装
 
 ```
+
 brew update //更新brew 源
 brew install redis  //安装redis
 redis-server //打开redis
@@ -110,4 +111,12 @@ redis-cli //终端 连接数据
 KEYS * //查看key
 set a 123 //设置key为a vlue值为123
 get a //出去"123"
+
 ```
+
+2. redis 特点:
+
+- 默认端口:6379
+- 内存存储
+- 支持 可持久存储
+- 支持多种数据结构 hashmap , map ,键值对
