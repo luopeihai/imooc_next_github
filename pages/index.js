@@ -4,12 +4,15 @@ import Router from "next/router";
 
 const Home = () => {
   function goAHome() {
-    Router.push({
-      pathname: "/a",
-      query: {
-        id: 2
-      }
-    });
+    Router.push(
+      {
+        pathname: "/a",
+        query: {
+          id: 2
+        }
+      },
+      "/b/b"
+    );
   }
 
   return (

@@ -224,3 +224,36 @@ const A = ({ router }) => (
 
 export default withRouter(A);
 ```
+
+### 路由映射 as
+
+> 也就是浏览器显示的跳转路劲自定义,但是真实的路劲不变
+
+1. 修改 参数跳转
+
+```
+Router.push({
+      pathname: "/a",
+      query: {
+        id: 2
+      }
+    },"/b/b");
+```
+
+这时候 请求浏览器显示为 http://localhost:3001/b/b ,真实路劲 还是带参 2 跳转到 a 页面
+
+2. **_koa 配置路由_** : as 后的 http://localhost:3001/b/b 重新刷新页面会报错,因为访问服务器 pages 下并没有 b/b 页面,这时候需要修改 koa 重新定向跳转到 a 页面
+
+```
+ router.get("/b/:id", async ctx => {
+    const id = ctx.params.id;
+    await handle(ctx.req, ctx.res, {
+      pathname: "/a",
+      query: {
+        id
+      }
+    });
+    ctx.respond = false;
+  });
+
+```

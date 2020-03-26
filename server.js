@@ -12,7 +12,7 @@ app.prepare().then(() => {
   const server = new Koa();
   const router = new Router();
 
-  router.get("/a/:id", async ctx => {
+  router.get("/b/:id", async ctx => {
     const id = ctx.params.id;
     await handle(ctx.req, ctx.res, {
       pathname: "/a",
