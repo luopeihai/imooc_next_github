@@ -120,3 +120,18 @@ get a //出去"123"
 - 内存存储
 - 支持 可持久存储
 - 支持多种数据结构 hashmap , map ,键值对
+
+### node 连接 redis
+
+1. 安装 redis 插件库 ioredis : npm i ioredis -s
+2. 创建 test-redis.js 对 redis 数据操作
+
+```
+    const Redis = require("ioredis");
+
+    const redis = new Redis();
+    //异步操作
+    redis.keys("*").then(keys => console.log(keys));
+```
+
+3. 执行文件 : node test-redis.js
