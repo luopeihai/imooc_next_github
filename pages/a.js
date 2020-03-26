@@ -1,22 +1,9 @@
-const A = ({ name }) => (
+import { withRouter } from "next/router";
+
+const A = ({ router }) => (
   <>
-    <span className="link">这是A页面</span>
-    <style jsx>
-      {`
-        .link {
-          color: red;
-        }
-      `}
-    </style>
-
-    <style jsx global>
-      {`
-        .link {
-          color: blue;
-        }
-      `}
-    </style>
+    <span className="link"> A {router.query.id}</span>
   </>
-)
+);
 
-export default A
+export default withRouter(A);

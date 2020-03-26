@@ -196,3 +196,5 @@ export default App;
 ### 路由跳转
 
 > next Link 组件进行跳转,跳转属性 href="",注意 Link 里面只有一个子节点
+
+### 动态路由(带参)
