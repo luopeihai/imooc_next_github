@@ -365,4 +365,33 @@ const Title = styled.h1`
 
 ```
 
-4. \_document.js 重写
+4. \_document.js 重写 引入
+
+### LazyLoading
+
+> 先添加 moment 作为依赖: npm i moment -s
+
+#### 异步加载模块
+
+#### 异步加载组件
+
+### Hooks
+
+基本用法 :
+
+```
+import React, { useState, useEffect } from "react";
+
+function MyCountFunc() {
+  const [count, setCount] = useState(0); //[a,b]
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCount(c => c + 1);
+    }, 1000);
+    //清楚倒计时
+    return () => clearInterval(interval);
+  }, []);
+  return <span>{count}</span>;
+}
+export default MyCountFunc;
+```

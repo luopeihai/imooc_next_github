@@ -13,9 +13,9 @@ const A = ({ name, timeDiff }) => {
 };
 
 A.getInitialProps = async ctx => {
-  //需要加载
+  //执行时候 才加载需要加载
   const { default: moment } = await import("moment");
-  console.log("moment: ", moment);
+  // console.log("moment: ", moment);
   const timeDiff = moment(Date.now() - 60 * 1000).fromNow();
   return { timeDiff };
 };
