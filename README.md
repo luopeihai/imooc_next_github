@@ -257,3 +257,34 @@ Router.push({
   });
 
 ```
+
+### getInitialProps
+
+> netxjs 数据获取规范:通过 getInitialProps 获取参数
+> 作用:
+
+1. 在页面中获取数据
+2. 在 App 中获取全局参数
+3. pages 下的.js 才能调用
+   代码:
+
+```
+import { withRouter } from "next/router";
+
+const A = ({ router, name }) => (
+  <>
+    <span className="link">
+      A name:{name} {router.query.id}
+    </span>
+  </>
+);
+
+A.getInitialProps = () => {
+  return {
+    name: "jokcy"
+  };
+};
+
+export default withRouter(A);
+
+```
