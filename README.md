@@ -30,6 +30,15 @@
 1. npm init 初始化
 2. npm i react react-dom next -s
 
+### 文件说明
+
+- pages 每个.js 对应一个页面
+- components 组件
+- lib 类库代码
+- static 资源文件
+- .next 编译文件
+- next.config.js next 配置文件
+
 ### create-next-app 搭建项目
 
 1. 全局安装 next 脚手架 npm i create-next-app -g
@@ -155,6 +164,7 @@ get a //出去"123"
 ```
 
 3. antd 库引入 : npm i antd -s , 和按需加载库:npm i babel-plugin-import -s
+
 4. 根目录创建按需加载配置文件: .babelrc
 
 ```
@@ -173,3 +183,16 @@ get a //出去"123"
 ```
 
 5.全局引入 antd css 文件
+
+> next 自带默认配置文件,需要在 pages 下创建\_app.js 进行修改
+
+```
+import App, { Container } from "next/app";
+import "antd/dist/antd.css"; //引入css
+
+export default App;
+```
+
+### 路由跳转
+
+> next Link 组件进行跳转,跳转属性 href="",注意 Link 里面只有一个子节点
