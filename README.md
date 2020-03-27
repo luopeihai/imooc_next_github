@@ -439,3 +439,19 @@ function MyCountFunc() {
 }
 
 ```
+
+### redux
+
+1. 安装 redux 库 : npm i redux react-redux -s
+2. 引入 异步执行 中间件安装 redux-thunk 库 : npm i redx-thunk -S
+
+### 项目中引入 redux
+
+### redux-dev-tool 工具
+
+1. 各大浏览器安装 redux 调试工具插件
+2. 安装调试 js 库 : npm i redux-devtools-extension -s
+
+### nextjs 中使用 HOC
+
+### redux 嵌入 nextjs
