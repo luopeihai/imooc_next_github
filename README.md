@@ -21,6 +21,8 @@
 
 > 一路跟随师傅取经,路上需有 Bug,随花几小时甚至几天才能解决,是一段缘分,一段修行,一段成长,唯有踏平 bug 艰难险阻,才能修得课程正果,此处记载路途 "龙"级灾难 bug
 
+1. github 中 回调地址错误 应该为:http://localhost:3001/auth
+
 1. bug 还未出现,前进中...
 
 # 取经路
@@ -455,3 +457,20 @@ function MyCountFunc() {
 ### nextjs 中使用 HOC
 
 ### redux 嵌入 nextjs
+
+###
+
+- 注册 github OAuth App
+  登录 github --> 点击头像 -->settings --> Developer setings --> OAuth Apps -->输入内容,本地开发 回调可以写成http://localhost:3000 保存 ClientID 和 Secret 到项目 config.js 中
+
+https://github.com/login/oauth/authorize?client_id=14f8805ae5e0cc4bca6f
+
+### session 和 cookies 嵌入
+
+> koa 集成 session
+
+1. 安装库 npm i koa-session -s
+
+### auth 嵌入
+
+1.修改 next.config.js 配置文件需要重新启动

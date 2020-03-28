@@ -1,41 +1,19 @@
-import { Button } from "antd";
-import Link from "next/link";
-import Router from "next/router";
 import { connect } from "react-redux";
+import getConfig from "next/config"; //获取next.config.js
 
-// const Home = () => {
-//   function goAHome() {
-//     Router.push(
-//       {
-//         pathname: "/a",
-//         query: {
-//           id: 2
-//         }
-//       },
-//       "/b/b"
-//     );
-//   }
+const { publicRuntimeConfig } = getConfig();
+const Index = ({ count, add }) => (
+  <>
+    <span>
+      首页 state的count是
+      {count}
+    </span>
+    <button onClick={add}>增加</button>
+    <a href={publicRuntimeConfig.OAUTH_URL}>去登陆</a>
+  </>
+);
 
-//   return (
-//     <>
-//       <Link href="/a" className="container">
-//         <Button>哈哈哈</Button>
-//       </Link>
-//       <Button onClick={goAHome}>函数跳转</Button>
-//     </>
-//   );
-// };
-
-const Home = ({ count, add }) => {
-  return (
-    <>
-      <span>首页 state的count是{count}</span>
-      <button onClick={add}>增加</button>
-    </>
-  );
-};
-
-Home.getInitialProps = async ({ reduxStore }) => {
+Index.getInitialProps = async ({ reduxStore }) => {
   console.log("reduxStore: ", reduxStore);
   reduxStore.dispatch({ type: "add" });
   return {};
@@ -55,5 +33,4 @@ function mapDispatchToProps(dispatch) {
     }
   };
 }
-
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default connect(mapStateToProps, mapDispatchToProps)(Index);

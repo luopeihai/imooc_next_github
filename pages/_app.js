@@ -3,7 +3,6 @@ import "antd/dist/antd.css";
 import React from "react";
 import { Provider } from "react-redux";
 import Layout from "../components/Layout";
-import initializeStore from "../store/store";
 import withRedux from "../lib/with-redux-app";
 class MyApp extends App {
   // App组件的getInitialProps比较特殊
