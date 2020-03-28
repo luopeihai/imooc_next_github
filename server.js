@@ -41,6 +41,7 @@ app.prepare().then(() => {
     ctx.respond = false;
   });
 
+  //获取用户信息
   router.get("/api/user/info", async ctx => {
     const { userInfo } = ctx.session;
     if (userInfo) {
@@ -48,6 +49,7 @@ app.prepare().then(() => {
       // 设置头部 返回json
       ctx.set("Content-Type", "application/json");
     } else {
+      //不存在
       ctx.status = 401;
       ctx.body = "Need Login";
     }
