@@ -1,11 +1,28 @@
 import Link from "next/link";
-import { Button } from "antd";
+import {
+  Layout,
+  Icon,
+  Input,
+  Avatar,
+  Button,
+  Tooltip,
+  Dropdown,
+  Menu
+} from "antd";
+const { Header, Content, Footer } = Layout;
 
 export default ({ children }) => (
-  <header>
-    <Link href="/a">
-      <Button>跳转到a页面</Button>
-    </Link>
-    <section className="container">{children}</section>
-  </header>
+  <Layout>
+    <Header></Header>
+    <div className="header-left">
+      <div className="logo">
+        <Icon type="github" />
+      </div>
+      <div>
+        <Input.Search placeholder="搜索仓库" />
+      </div>
+    </div>
+    <Content>{children}</Content>
+    <Footer>Develop by Jokcy teacher</Footer>
+  </Layout>
 );
