@@ -77,9 +77,7 @@ function MyLayout({ children, user, logout, router }) {
                 </Dropdown>
               ) : (
                 <Tooltip placement="bottom" title="点击进行登录">
-                  <a href={`/prepare-auth?url=${router.asPath}`}>
-                    <Avatar size={40} icon="user" />
-                  </a>
+                  <a href={`/prepare-auth?url=${router.asPath}`}>登录</a>
                 </Tooltip>
               )}
             </div>

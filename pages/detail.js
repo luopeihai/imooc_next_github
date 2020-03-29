@@ -1,9 +1,9 @@
 const Detail = () => <span>Detail</span>;
 
-Detail.getInitialProps = async () => {
+Detail.getInitialProps = () => {
   return new Promise(r => {
     setTimeout(() => {
-      r();
+      r({});
     }, 1000);
   });
 };

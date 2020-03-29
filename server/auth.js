@@ -71,6 +71,7 @@ module.exports = server => {
     if (path === "/prepare-auth" && method === "GET") {
       const { url } = ctx.query;
       ctx.session.urlBeforeOAuth = url;
+      //跳转github授权页
       ctx.redirect(config.OAUTH_URL);
     } else {
       await next();
