@@ -11,6 +11,7 @@ import {
   Menu
 } from "antd";
 const { Header, Content, Footer } = Layout;
+import Container from "./Container";
 
 const githubIconStyle = {
   color: "white",
@@ -24,6 +25,8 @@ const footerStyle = {
   textAlign: "center"
 };
 
+const Comp = ({ color, childern }) => <div style={{ color }}>{childern}</div>;
+
 export default ({ children }) => {
   const [search, setSearch] = useState("");
   const handleSearchChange = useCallback(event => {
@@ -34,7 +37,7 @@ export default ({ children }) => {
   return (
     <Layout>
       <Header>
-        <div className="header-inner">
+        <Container renderer={<div className="header-inner" />}>
           <div className="header-left">
             <div className="logo">
               <Icon type="github" style={githubIconStyle} />
@@ -50,13 +53,15 @@ export default ({ children }) => {
           </div>
           <div className="header-right">
             <div className="user">
-              <Avatar size={40} icon="user"></Avatar>
+              <Avatar size={40} icon="user" />
             </div>
           </div>
-        </div>
+        </Container>
       </Header>
 
-      <Content>{children}</Content>
+      <Content>
+        <Container>{children}</Container>
+      </Content>
       <Footer style={footerStyle}>Develop by Jokcy teacher</Footer>
       <style jsx global>
         {`
