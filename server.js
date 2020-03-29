@@ -6,6 +6,7 @@ const Redis = require("ioredis");
 const auth = require("./server/auth");
 const api = require("./server/api");
 const RedisSessionStore = require("./server/session-store");
+const koaBody = require("koa-body");
 
 const dev = process.env.NODE_ENV !== "production";
 const app = next({ dev });
@@ -17,7 +18,7 @@ const PORT = 3001;
 app.prepare().then(() => {
   const server = new Koa();
   const router = new Router();
-
+  server.use(koaBody());
   // 用于给session加密
   server.keys = ["ssh develop github app"];
   const sessionConfig = {
