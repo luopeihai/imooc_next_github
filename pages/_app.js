@@ -28,12 +28,12 @@ class MyApp extends App {
     const { Component, pageProps, reduxStore } = this.props;
     return (
       <Container>
-        <Layout>
-          <Provider store={reduxStore}>
+        <Provider store={reduxStore}>
+          <Layout>
             {/* 把pageProps解构后传递给组件 */}
             <Component {...pageProps} />
-          </Provider>
-        </Layout>
+          </Layout>
+        </Provider>
       </Container>
     );
   }

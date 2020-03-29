@@ -1,5 +1,6 @@
 import { useState, useCallback } from "react";
 import Link from "next/link";
+import { connect } from "react-redux";
 import {
   Layout,
   Icon,
@@ -12,6 +13,8 @@ import {
 } from "antd";
 const { Header, Content, Footer } = Layout;
 import Container from "./Container";
+import getConfig from "next/config";
+const { publicRuntimeConfig } = getConfig();
 
 const githubIconStyle = {
   color: "white",
@@ -25,14 +28,21 @@ const footerStyle = {
   textAlign: "center"
 };
 
-const Comp = ({ color, childern }) => <div style={{ color }}>{childern}</div>;
-
-export default ({ children }) => {
+function MyLayout({ children, user }) {
   const [search, setSearch] = useState("");
   const handleSearchChange = useCallback(event => {
     setSearch(event.target.value);
   }, []);
   const handleOnSearch = useCallback(() => {}, []);
+
+  //登出下拉框
+  const UserDropDown = (
+    <Menu>
+      <Menu.Item>
+        <Button type="link">登出</Button>
+      </Menu.Item>
+    </Menu>
+  );
 
   return (
     <Layout>
@@ -53,7 +63,19 @@ export default ({ children }) => {
           </div>
           <div className="header-right">
             <div className="user">
-              <Avatar size={40} icon="user" />
+              {user && user.id ? (
+                <Dropdown overlay={UserDropDown}>
+                  <a href={user.html_url} target="blank">
+                    <Avatar size={40} src={user.avatar_url} />
+                  </a>
+                </Dropdown>
+              ) : (
+                <Tooltip placement="bottom" title="点击进行登录">
+                  <a href={`/prepare-auth?url=${router.asPath}`}>
+                    <Avatar size={40} icon="user" />
+                  </a>
+                </Tooltip>
+              )}
             </div>
           </div>
         </Container>
@@ -110,4 +132,9 @@ export default ({ children }) => {
       </style>
     </Layout>
   );
-};
+}
+export default connect(function mapState(state) {
+  return {
+    user: state.user
+  };
+})(MyLayout);
