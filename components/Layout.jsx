@@ -15,7 +15,7 @@ const { Header, Content, Footer } = Layout;
 import Container from "./Container";
 import getConfig from "next/config";
 const { publicRuntimeConfig } = getConfig();
-
+import { logout } from "../store/store";
 const githubIconStyle = {
   color: "white",
   fontSize: 40,
@@ -28,18 +28,23 @@ const footerStyle = {
   textAlign: "center"
 };
 
-function MyLayout({ children, user }) {
+function MyLayout({ children, user, logout }) {
   const [search, setSearch] = useState("");
   const handleSearchChange = useCallback(event => {
     setSearch(event.target.value);
   }, []);
   const handleOnSearch = useCallback(() => {}, []);
+  const handleLogout = useCallback(() => {
+    logout();
+  }, []);
 
   //登出下拉框
   const UserDropDown = (
     <Menu>
       <Menu.Item>
-        <Button type="link">登出</Button>
+        <Button onClick={handleLogout} type="link">
+          登出
+        </Button>
       </Menu.Item>
     </Menu>
   );
@@ -71,7 +76,7 @@ function MyLayout({ children, user }) {
                 </Dropdown>
               ) : (
                 <Tooltip placement="bottom" title="点击进行登录">
-                  <a href={`/prepare-auth?url=${router.asPath}`}>
+                  <a href={publicRuntimeConfig.OAUTH_URL}>
                     <Avatar size={40} icon="user" />
                   </a>
                 </Tooltip>
@@ -133,8 +138,15 @@ function MyLayout({ children, user }) {
     </Layout>
   );
 }
-export default connect(function mapState(state) {
-  return {
-    user: state.user
-  };
-})(MyLayout);
+export default connect(
+  function mapState(state) {
+    return {
+      user: state.user
+    };
+  },
+  function mapReducer(dispatch) {
+    return {
+      logout: () => dispatch(logout())
+    };
+  }
+)(MyLayout);

@@ -22,6 +22,7 @@ const allReducers = combineReducers({
   user: userReducer
 });
 
+//退出
 export function logout() {
   return dispatch => {
     axios

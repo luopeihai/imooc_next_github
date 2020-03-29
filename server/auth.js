@@ -50,4 +50,15 @@ module.exports = server => {
       await next();
     }
   });
+
+  server.use(async (ctx, next) => {
+    const path = ctx.path;
+    const method = ctx.method;
+    if (path === "/logout" && method === "POST") {
+      ctx.session = null;
+      ctx.body = `退出登录`;
+    } else {
+      await next();
+    }
+  });
 };
