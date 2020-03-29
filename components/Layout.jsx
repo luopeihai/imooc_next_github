@@ -30,11 +30,18 @@ const footerStyle = {
 };
 
 function MyLayout({ children, user, logout, router }) {
-  const [search, setSearch] = useState("");
+  //检索
+  const urlQuery = router.query && router.query.query;
+
+  const [search, setSearch] = useState(urlQuery || "");
+
   const handleSearchChange = useCallback(event => {
     setSearch(event.target.value);
   }, []);
-  const handleOnSearch = useCallback(() => {}, []);
+  //跳转到收藏页面
+  const handleOnSearch = useCallback(() => {
+    router.push(`/search?query=${search}`);
+  }, [search]);
   const handleLogout = useCallback(() => {
     logout();
   }, [logout]);
@@ -56,7 +63,9 @@ function MyLayout({ children, user, logout, router }) {
         <Container renderer={<div className="header-inner" />}>
           <div className="header-left">
             <div className="logo">
-              <Icon type="github" style={githubIconStyle} />
+              <Link href="/">
+                <Icon type="github" style={githubIconStyle} />
+              </Link>
             </div>
             <div>
               <Input.Search
