@@ -1,6 +1,7 @@
 import { useState, useCallback } from "react";
 import Link from "next/link";
 import { connect } from "react-redux";
+import { withRouter, Router } from "next/router";
 import {
   Layout,
   Icon,
@@ -28,7 +29,7 @@ const footerStyle = {
   textAlign: "center"
 };
 
-function MyLayout({ children, user, logout }) {
+function MyLayout({ children, user, logout, router }) {
   const [search, setSearch] = useState("");
   const handleSearchChange = useCallback(event => {
     setSearch(event.target.value);
@@ -36,7 +37,7 @@ function MyLayout({ children, user, logout }) {
   const handleOnSearch = useCallback(() => {}, []);
   const handleLogout = useCallback(() => {
     logout();
-  }, []);
+  }, [logout]);
 
   //登出下拉框
   const UserDropDown = (
@@ -76,7 +77,7 @@ function MyLayout({ children, user, logout }) {
                 </Dropdown>
               ) : (
                 <Tooltip placement="bottom" title="点击进行登录">
-                  <a href={publicRuntimeConfig.OAUTH_URL}>
+                  <a href={`/prepare-auth?url=${router.asPath}`}>
                     <Avatar size={40} icon="user" />
                   </a>
                 </Tooltip>
@@ -149,4 +150,4 @@ export default connect(
       logout: () => dispatch(logout())
     };
   }
-)(MyLayout);
+)(withRouter(MyLayout));
