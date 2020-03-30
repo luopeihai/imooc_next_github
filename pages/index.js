@@ -7,8 +7,19 @@ import { Button, Icon, Tabs } from "antd";
 import Repo from "../components/Repo";
 const { publicRuntimeConfig } = getConfig();
 const api = require("../lib/api");
+const isServer = typeof window === "undefined";
+let cachedUserRepos = [],
+  cacheUserStaredRepos = [];
+function Index({ userRepos, userStaredRepos, user, router }) {
+  const tabKey = router.query.key || "1";
 
-function Index({ userRepos, userStaredRepos, user }) {
+  useEffect(() => {
+    if (!isServer) {
+      cachedUserRepos = userRepos;
+      cacheUserStaredRepos = userStaredRepos;
+    }
+  }, []);
+
   if (!user || !user.id) {
     return (
       <div className="root">
@@ -32,7 +43,6 @@ function Index({ userRepos, userStaredRepos, user }) {
   }
 
   const { avatar_url, login, name, bio, email } = user;
-  const tabKey = "1";
 
   const handleTabChange = activeKey => {
     Router.push(`/?key=${activeKey}`);
@@ -43,6 +53,7 @@ function Index({ userRepos, userStaredRepos, user }) {
       <div className="user-info">
         <img src={avatar_url} alt="" className="avatar" />
         <span className="login">{login}</span>
+
         <span className="name">{name}</span>
         <span className="bio">{bio}</span>
         <p className="email">
@@ -53,12 +64,12 @@ function Index({ userRepos, userStaredRepos, user }) {
       <div className="user-repos">
         <Tabs activeKey={tabKey} onChange={handleTabChange} animated={false}>
           <Tabs.TabPane tab="你的仓库" key="1">
-            {userRepos.map(repo => (
+            {cachedUserRepos.map(repo => (
               <Repo key={repo.id} repo={repo} />
             ))}
           </Tabs.TabPane>
           <Tabs.TabPane tab="你关注的仓库" key="2">
-            {userStaredRepos.map(repo => (
+            {cacheUserStaredRepos.map(repo => (
               <Repo key={repo.id} repo={repo} />
             ))}
           </Tabs.TabPane>
@@ -145,4 +156,4 @@ export default connect(function mapState(state) {
   return {
     user: state.user
   };
-})(Index);
+})(withRouter(Index));
