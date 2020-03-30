@@ -5,20 +5,18 @@ import Router, { withRouter } from "next/router";
 import { connect } from "react-redux";
 import { Button, Icon, Tabs } from "antd";
 import Repo from "../components/Repo";
+import initCache from "../lib/client-cache";
 const { publicRuntimeConfig } = getConfig();
+const { cache, useCache } = initCache();
 const api = require("../lib/api");
 const isServer = typeof window === "undefined";
-let cachedUserRepos = [],
-  cacheUserStaredRepos = [];
+
 function Index({ userRepos, userStaredRepos, user, router }) {
   const tabKey = router.query.key || "1";
-
-  useEffect(() => {
-    if (!isServer) {
-      cachedUserRepos = userRepos;
-      cacheUserStaredRepos = userStaredRepos;
-    }
-  }, []);
+  useCache("cache", {
+    userRepos,
+    userStaredRepos
+  });
 
   if (!user || !user.id) {
     return (
@@ -64,12 +62,12 @@ function Index({ userRepos, userStaredRepos, user, router }) {
       <div className="user-repos">
         <Tabs activeKey={tabKey} onChange={handleTabChange} animated={false}>
           <Tabs.TabPane tab="你的仓库" key="1">
-            {cachedUserRepos.map(repo => (
+            {userRepos.map(repo => (
               <Repo key={repo.id} repo={repo} />
             ))}
           </Tabs.TabPane>
-          <Tabs.TabPane tab="你关注的仓库" key="2">
-            {cacheUserStaredRepos.map(repo => (
+          <Tabs.TabPane tab="你关注的仓库1" key="2">
+            {userStaredRepos.map(repo => (
               <Repo key={repo.id} repo={repo} />
             ))}
           </Tabs.TabPane>
@@ -125,7 +123,7 @@ function Index({ userRepos, userStaredRepos, user, router }) {
   );
 }
 
-Index.getInitialProps = async ({ ctx, reduxStore }) => {
+Index.getInitialProps = cache(async ({ ctx, reduxStore }) => {
   const user = reduxStore.getState().user;
   if (!user || !user.id) {
     return {};
@@ -150,7 +148,7 @@ Index.getInitialProps = async ({ ctx, reduxStore }) => {
     userRepos: userRepos.data,
     userStaredRepos: userStaredRepos.data
   };
-};
+});
 
 export default connect(function mapState(state) {
   return {
