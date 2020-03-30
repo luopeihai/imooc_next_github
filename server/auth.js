@@ -8,6 +8,7 @@ module.exports = server => {
   server.use(async (ctx, next) => {
     //github 登录成功的回调
     if (ctx.path === "/auth") {
+      //获取授权成功的 code
       const { code } = ctx.query;
       if (code) {
         // 获取Oauth鉴权信息
@@ -26,6 +27,7 @@ module.exports = server => {
 
         // github 可能会在status是200的情况下返回error信息
         if (result.status === 200 && result.data && !result.data.error) {
+          //github用户信息储存
           ctx.session.githubAuth = result.data;
 
           const { access_token, token_type } = result.data;
@@ -38,6 +40,7 @@ module.exports = server => {
             }
           });
 
+          //用户信息
           ctx.session.userInfo = userInfo;
           // 重定向到登录前的页面或首页
           ctx.redirect((ctx.session && ctx.session.urlBeforeOAuth) || "/");

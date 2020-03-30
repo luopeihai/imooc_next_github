@@ -27,10 +27,12 @@ app.prepare().then(() => {
     // 将自定义存储逻辑传给koa-session
     store: new RedisSessionStore(redisClient)
   };
+
   server.use(session(sessionConfig, server));
 
   // 处理github Oauth登录
   auth(server);
+  //api 接口
   api(server);
 
   router.get("/a/:id", async ctx => {
