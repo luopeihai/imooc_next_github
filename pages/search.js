@@ -35,6 +35,7 @@ const SORT_TYPES = [
   {
     name: "Best Match"
   },
+
   {
     name: "Most Starts",
     sort: "stars",
@@ -59,6 +60,7 @@ const SORT_TYPES = [
 
 const PER_PAGE = 20;
 
+//纯组件
 const FilterLink = memo(
   ({ children, query, lang, sort, order, page, selected }) => {
     if (selected) {
@@ -83,6 +85,7 @@ const FilterLink = memo(
 
     return (
       <Link href={`/search${queryString}`}>
+        {/* isValidElement 判断是否为react 元素 */}
         {isValidElement(children) ? children : <a>{children}</a>}
       </Link>
     );

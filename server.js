@@ -7,12 +7,17 @@ const auth = require("./server/auth");
 const api = require("./server/api");
 const RedisSessionStore = require("./server/session-store");
 const koaBody = require("koa-body");
+const atob = require("atob");
 
 const dev = process.env.NODE_ENV !== "production";
 const app = next({ dev });
 const handle = app.getRequestHandler();
 // 实例化一个redisClient
 const redisClient = new Redis();
+
+// 给node全局增加atob方法
+global.atob = atob;
+
 const PORT = 3001;
 // 等到pages目录编译完成后启动服务响应请求
 app.prepare().then(() => {
