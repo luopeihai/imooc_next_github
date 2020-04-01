@@ -30,8 +30,11 @@ const b64ToUtf8 = str => {
 
 let hljsInited = false;
 export default memo(({ content, isBase64 }) => {
+  //转换成utf-8
   const converted = isBase64 ? b64ToUtf8(content) : content;
+
   const html = useMemo(() => md.render(converted), [converted]);
+
   if (!hljsInited && typeof window !== "undefined") {
     hljs.initHighlightingOnLoad();
     hljsInited = true;

@@ -3,7 +3,7 @@ import { Avatar, Button, Select } from "antd";
 import { useRouter } from "next/router";
 import WithRepoBasic from "../../components/WithRepoBasic";
 import MarkdownRenderer from "../../components/MarkdownRenderer";
-import SearchUser from "../../components/SearchUser";
+import SearchUser from "../../components/SearchUser.jsx";
 import { request } from "../../lib/api";
 import {
   getTimeFromNow,
