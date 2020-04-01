@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "analyze:browser": "cross-env BUNDLE_ANALYZE=browser next build",
-    "export": "next export"
+    "export": "next build && next export"
   },
   "dependencies": {
     "@zeit/next-bundle-analyzer": "^0.1.2",
